@@ -16,4 +16,4 @@ echo "ETL process completed successfully!"
 
 echo "Starting Jupyter Lab..."
 
-jupyter lab --NotebookApp.token=''
+jupyter lab --NotebookApp.token='' --allow-root
