@@ -8,9 +8,15 @@ jupyter execute ./data/raw/analytics.ipynb
 
 echo "Raw Data Analysis Notebook executed successfully!"
 
-echo "Starting ETL process from Raw to Silver..."
+echo "Starting ETL process"
+echo "\tETL Raw -> Silver..."
 
 jupyter execute ./etl/etl_raw_to_silver.ipynb
+
+echo "ETL process from Raw to Silver..."
+
+jupyter execute ./etl/etl_slv_gold.ipynb
+echo "\tETL Silver -> Gold..."
 
 echo "ETL process completed successfully!"
 
