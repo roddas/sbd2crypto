@@ -31,6 +31,38 @@ services:
     networks:
       - crypto-network
 
+  metabase:
+    image: metabase/metabase:latest
+    container_name: crypto_metabase
+    environment:
+      MB_DB_TYPE: postgres
+      MB_DB_DBNAME: ${POSTGRES_DB:-crypto_db}
+      MB_DB_HOST: postgres
+      MB_DB_PORT: 5432
+      MB_DB_USER: ${POSTGRES_USER:-crypto_db}
+      MB_DB_PASS: postgres
+      MB_ANONYMOUS_TRACKING_ENABLED: "false"
+      MB_SITE_NAME: "Crypto Analytics"
+      MB_SITE_LOCALE: en
+      MB_SETUP_ADMIN_EMAIL: "admin@crypto.com"
+      MB_SETUP_ADMIN_PASSWORD: "admin123#$@"
+      MB_SETUP_ADMIN_NAME: "Crypto Admin"
+      MB_SETUP_DB: "true"
+      MB_SETUP_DB_DEFERRED: "true"
+      MB_PREMIUM_EMBEDDING_TOKEN: ""
+      MB_CONFIG_FROM_ENV: "true"
+      MB_CONFIG_FILE_PATH: "/metabase-data/config.yml"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    networks:
+      - crypto-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 volumes:
   postgres_data:
 
